@@ -1,3 +1,5 @@
+def flag = true    // This is a variable defined outside the pipeline
+
 pipeline {
     agent any
 
@@ -7,26 +9,22 @@ pipeline {
                 echo 'Building Project'
             }
         }
+
         stage('Test') {
+            when {
+                expression {
+                    flag == false    // Test stage ONLY runs if flag equals false
+                }
+            }
             steps {
                 echo 'Testing Project'
             }
         }
+
         stage('Deploy') {
             steps {
                 echo 'Deploying Project'
             }
-        }
-    }
-
-    post {
-        always {
-            // This runs every time, whether build passed or failed
-            echo 'Post build condition running'
-        }
-        failure {
-            // This only runs if the build FAILED
-            echo 'Post Action if Build Failed'
         }
     }
 }
