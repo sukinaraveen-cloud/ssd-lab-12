@@ -11,7 +11,6 @@ pipeline {
             steps {
                 echo 'Building Project'
                 echo "Building version ${NEW_VERSION}"
-                bat 'mvn install'
             }
         }
         stage('Test') {
