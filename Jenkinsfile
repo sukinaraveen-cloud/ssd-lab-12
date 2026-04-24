@@ -5,20 +5,28 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building Project'
-                // Here you can define commands for your build
             }
         }
         stage('Test') {
             steps {
                 echo 'Testing Project'
-                // Here you can define commands for your tests
             }
         }
         stage('Deploy') {
             steps {
                 echo 'Deploying Project'
-                // Here you can define commands for your deployment
             }
+        }
+    }
+
+    post {
+        always {
+            // This runs every time, whether build passed or failed
+            echo 'Post build condition running'
+        }
+        failure {
+            // This only runs if the build FAILED
+            echo 'Post Action if Build Failed'
         }
     }
 }
