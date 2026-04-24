@@ -1,9 +1,12 @@
 pipeline {
     agent any
 
+    tools {
+        // 'Maven' here must EXACTLY match the name you set in Jenkins Tools config
+        maven 'Maven'
+    }
+
     environment {
-        // Define your custom variables here
-        // They can be used by ALL stages below
         NEW_VERSION = '1.3.0'
     }
 
@@ -11,8 +14,12 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building Project'
-                // To use an environment variable, wrap it in ${} inside double quotes
                 echo "Building version ${NEW_VERSION}"
+
+                // This runs the Maven install command
+                // Use sh for Linux/Mac, bat for Windows
+                sh "mvn install"       // Linux / Mac
+                // bat 'mvn install'   // Windows — uncomment this line if on Windows
             }
         }
         stage('Test') {
@@ -23,7 +30,6 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying Project'
-                echo "Deploying version ${NEW_VERSION}"
             }
         }
     }
