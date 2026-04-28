@@ -1,3 +1,7 @@
+// Contribution:
+// Added dropdown version selection and conditional test execution
+// Shanzay Shah - SSD Lab 12 - Jenkinsfile with Parameters and Conditional Stages
+
 pipeline {
     agent any
 
